@@ -4,8 +4,20 @@ my $zaga;
 my @zagb;
 my $zagc;
 my $zagd; # Ultimate Closing Form:
+my $live_file_set = ( 1 > 2 );
+my $live_file_at;
+my @recurs_cmd;
+my $cool_to_go;
 
 system("date");
+
+sub opto__live_do {
+  $live_file_at = &argola::getrg();
+  system("echo","Set file: " . $live_file_at . ":");
+  $live_file_set = ( 2 > 1 );
+} &argola::setopt('-live',\&opto__live_do);
+
+&argola::runopts;
 
 
 $zaga = `ls -1d *-f.txt`;
@@ -22,8 +34,17 @@ foreach $zagc (@zagb)
 }
 
 sleep(2);
-exec("nfs-edit-catch");
+$cool_to_go = ( 2 > 1 );
+@recurs_cmd = ("nfs-edit-catch");
+if ( $live_file_set )
+{
+  @recurs_cmd = (@recurs_cmd,'-live',$live_file_at);
+  system("echo","Reaffirming Live File: " . $live_file_at . ":");
+  $cool_to_go = ( -f $live_file_at );
+}
 
+if ( $cool_to_go ) { exec(@recurs_cmd); }
+exit(0);
 
 sub lev_aa {
   my $lc_lbas;
